@@ -60,21 +60,26 @@ const Value = styled.p`
 `;
 
 const ButtonContainer = styled.div`
-  position: absolute;
-  bottom: 32px;
+  position: sticky;
   width: 100%;
+  bottom: 32px;
   padding: 0 16px;
 `;
 
 const CreateButton = styled.button`
+  display: flex;
+  justify-content: center;
   box-sizing: border-box;
   width: 100%;
   background-color: #3F2787;
   border: none;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(112, 82, 200, 0.3);
-  padding: 12px 96px;
+  padding: 12px 0;
+`;
 
+const ButtonLabel = styled.span`
+  margin-left: 10px;
   font-size: 16px;
   font-weight: bold;
   line-height: 24px;
@@ -94,4 +99,5 @@ export default {
   Value,
   ButtonContainer,
   CreateButton,
+  ButtonLabel,
 };

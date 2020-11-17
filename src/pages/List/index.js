@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Icon from '../../atoms/Icon';
 import number from '../../helpers/number';
 
 import Style from './List.style';
@@ -19,7 +20,7 @@ const List = () => (
         {info.totalValueTransactionsLabel}
       </Style.SummaryLabel>
       <Style.SummaryValue>
-        {number.formatCurrency(24339,46)}
+        {number.formatCurrency(24339.46)}
       </Style.SummaryValue>
     </Style.Summary>
     {
@@ -46,7 +47,7 @@ const List = () => (
     }
     <Style.ButtonContainer>
       <Style.CreateButton>
-        {info.createButtonLabel}
+        <Icon glyph="add"/><Style.ButtonLabel>{info.createButtonLabel}</Style.ButtonLabel>
       </Style.CreateButton>
     </Style.ButtonContainer>
   </>

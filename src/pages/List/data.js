@@ -38,6 +38,30 @@ const transactions = [
     date: '10/10/2010 10:30',
     status: 'Recusada',
     value: 100,
+  },
+  {
+    user: 'João S Silva',
+    date: '10/10/2010 10:30',
+    status: 'Recusada',
+    value: 100,
+  },
+  {
+    user: 'João S Silva',
+    date: '10/10/2010 10:30',
+    status: 'Recusada',
+    value: 100,
+  },
+  {
+    user: 'João S Silva',
+    date: '10/10/2010 10:30',
+    status: 'Recusada',
+    value: 100,
+  },
+  {
+    user: 'João S Silva',
+    date: '10/10/2010 10:30',
+    status: 'Recusada',
+    value: 100,
   }
 ]
 export default {
