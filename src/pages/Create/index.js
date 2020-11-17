@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 
 import CreateForm from '../../molecules/CreateForm';
 
-import CreateButton from '../../atoms/CreateButton';
 import Icon from '../../atoms/Icon';
 
 import Style from './Create.style';
@@ -13,6 +12,7 @@ import info from './data';
 const Create = () => {
   const history = useHistory();
   const goBack = () => history.push('/');
+
   return (
     <>
       <Style.Header>
@@ -24,7 +24,6 @@ const Create = () => {
         </Style.Title>
       </Style.Header>
       <CreateForm />
-      <CreateButton action={()=>{}} disabled />
     </>
   );
 }
