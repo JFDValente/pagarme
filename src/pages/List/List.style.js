@@ -60,7 +60,7 @@ const Value = styled.p`
 `;
 
 const ButtonContainer = styled.div`
-  position: sticky;
+  position: absolute;
   width: 100%;
   bottom: 32px;
   padding: 0 16px;

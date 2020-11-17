@@ -8,6 +8,7 @@ const GlobalStyles = createGlobalStyle`
     line-height: 24px;
     width: 100%;
     margin: 0;
+    min-height: 100vh;
   }
 
   p {

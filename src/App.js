@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import List from './pages/List';
+import Create from './pages/Create';
 
 import Style from './App.style';
 
@@ -14,8 +15,11 @@ export default function App() {
     <Router>
       <Style.GlobalStyles />
       <Switch>
-        <Route path="/">
+        <Route exact path="/">
           <List />
+        </Route>
+        <Route exact path="/create">
+          <Create />
         </Route>
       </Switch>
     </Router>
