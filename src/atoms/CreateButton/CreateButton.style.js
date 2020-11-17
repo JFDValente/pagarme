@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const ButtonContainer = styled.div`
+  box-sizing: border-box;
   position: absolute;
   width: 100%;
   bottom: 32px;

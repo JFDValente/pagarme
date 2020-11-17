@@ -1,6 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import CreateForm from '../../molecules/CreateForm';
+
 import CreateButton from '../../atoms/CreateButton';
 import Icon from '../../atoms/Icon';
 
@@ -21,7 +23,7 @@ const Create = () => {
           {info.title}
         </Style.Title>
       </Style.Header>
-      {/* <CreateForm /> */}
+      <CreateForm />
       <CreateButton action={()=>{}} disabled />
     </>
   );

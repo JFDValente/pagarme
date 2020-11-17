@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Header = styled.div`
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   width: 100%;

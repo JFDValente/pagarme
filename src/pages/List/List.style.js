@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Summary = styled.div`
+  box-sizing: border-box;
   width: 100%;
   padding: 20px 16px 0px;
   background-color: #F2F2F3;
@@ -22,6 +23,7 @@ const SummaryValue = styled.p`
 `;
 
 const Transaction = styled.div`
+  box-sizing: border-box;
   display: flex;
   width: 100%;
   flex-direction: row;
