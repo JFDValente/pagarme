@@ -1,4 +1,7 @@
 import React from "react";
+import { Provider as ReduxProvider } from 'react-redux';
+import store from './store';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,16 +15,18 @@ import Style from './App.style';
 
 export default function App() {
   return (
-    <Router>
-      <Style.GlobalStyles />
-      <Switch>
-        <Route exact path="/">
-          <List />
-        </Route>
-        <Route exact path="/create">
-          <Create />
-        </Route>
-      </Switch>
-    </Router>
+    <ReduxProvider store={store}>
+      <Router>
+        <Style.GlobalStyles />
+        <Switch>
+          <Route exact path="/">
+            <List />
+          </Route>
+          <Route exact path="/create">
+            <Create />
+          </Route>
+        </Switch>
+      </Router>
+    </ReduxProvider>
   );
 }

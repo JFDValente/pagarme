@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setListTransactions } from '../../store/actions';
 
 import CreateButton from '../../atoms/CreateButton';
 
+import { getTransactions } from '../../helpers/request';
 import number from '../../helpers/number';
 
 import Style from './List.style';
@@ -12,6 +16,36 @@ import info from './data';
 const List = () => {
   const history = useHistory();
   const goToCreate = () => history.push('/create');
+  const transactions = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  const [countTransactions, setCountTransactions] = useState(0);
+  const [totalValue, setTotalValue] = useState(0);
+
+  /**
+   * updates summary values
+   */
+  useEffect(()=> {
+    setCountTransactions(transactions.length);
+
+    const sum = transactions.reduce((prev, cur) => {
+      return prev + cur.value;
+    }, 0);
+    setTotalValue(sum);
+  }, [transactions]);
+
+  /**
+   * initial transaction list request
+   */
+  useEffect(() => {
+    if (!transactions.length) {
+      getTransactions()
+        .then(data => {
+          dispatch(setListTransactions(data));
+        });
+    }
+  }, []);
+
   return (
     <>
       <Style.Summary>
@@ -19,21 +53,21 @@ const List = () => {
           {info.quantityTransactionsLabel}
         </Style.SummaryLabel>
         <Style.SummaryValue>
-          {number.formatNumber(103030)}
+          {number.formatNumber(countTransactions)}
         </Style.SummaryValue>
         <Style.SummaryLabel>
           {info.totalValueTransactionsLabel}
         </Style.SummaryLabel>
         <Style.SummaryValue>
-          {number.formatCurrency(24339.46)}
+          {number.formatCurrency(totalValue)}
         </Style.SummaryValue>
       </Style.Summary>
       {
-        info.transactions.map((transaction) => (
+        !!transactions && transactions.map((transaction) => (
           <Style.Transaction key={Math.random() * 10}>
             <Style.LeftColumnTransaction>
               <Style.User>
-                {transaction.user}
+                {transaction.name}
               </Style.User>
               <Style.Date>
                 {transaction.date}
