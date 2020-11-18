@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setTransaction } from '../../store/actions';
 
 import CreateButton from '../../atoms/CreateButton';
 import InputField from '../../atoms/InputField';
@@ -10,14 +13,15 @@ import { isDataValid } from '../../helpers/validators';
 import Style from './CreateForm.style';
 
 const CreateForm = () => {
+  const dispatch = useDispatch();
+
   const [name, setName] = useState('');
-  const [CPF, setCPF] = useState('');
+  const [cpf, setCpf] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [expireDate, setExpireDate] = useState('');
-  const [CVV, setCVV] = useState('');
+  const [cvv, setCvv] = useState('');
   const [transactionValue, setTransactionValue] = useState('');
   const [disabledButton, setDisabledButton] = useState(true);
-  const [payloadRequest, setPayloadRequest] = useState({});
 
   /**
    * controls enabling the create transaction button
@@ -30,7 +34,21 @@ const CreateForm = () => {
    * performs the creation of a transaction
    */
   const handleSubmission = () => {
-    console.log(payloadRequest);
+    const filteredTransactionValue = transactionValue.replace(/[^\d]/g, "");
+    const filteredcpf = string.filterCpf(cpf);
+    const filteredCardNumber = string.filterCardNumber(cardNumber);
+    const filteredExpireDate = string.filterExpireDate(expireDate);
+
+    const newTransaction = {
+      name,
+      cpf: filteredcpf,
+      cardNumber: filteredCardNumber,
+      expireDate: filteredExpireDate,
+      date: new Date(),
+      cvv,
+      value: (Number(filteredTransactionValue)/100),
+    }
+    dispatch(setTransaction(newTransaction));
   };
 
   /**
@@ -41,9 +59,9 @@ const CreateForm = () => {
     setName(e.target.value);
   }
 
-  const onChangeCPF = (e) => {
-    const formattedCPF = string.formatCPF(e.target.value);
-    setCPF(formattedCPF);
+  const onChangeCpf = (e) => {
+    const formattedcpf = string.formatCpf(e.target.value);
+    setCpf(formattedcpf);
   }
 
   const onChangeCardNumber = (e) => {
@@ -56,9 +74,9 @@ const CreateForm = () => {
     setExpireDate(formattedExpireDate);
   }
 
-  const onChangeCVV = (e) => {
-    const formattedCVV = string.formatCVV(e.target.value);
-    setCVV(formattedCVV);
+  const onChangeCvv = (e) => {
+    const formattedCvv = string.formatCvv(e.target.value);
+    setCvv(formattedCvv);
   }
 
   const onChangeTransactionValue = (e) => {
@@ -74,35 +92,26 @@ const CreateForm = () => {
    */
   useEffect(() => {
     const filteredTransactionValue = transactionValue.replace(/[^\d]/g, "");
-    const filteredCPF = string.filterCPF(CPF);
+    const filteredcpf = string.filterCpf(cpf);
     const filteredCardNumber = string.filterCardNumber(cardNumber);
     const filteredExpireDate = string.filterExpireDate(expireDate);
 
-    if (isDataValid(name, filteredCPF, filteredCardNumber, filteredExpireDate, CVV, filteredTransactionValue)) {
+    if (isDataValid(name, filteredcpf, filteredCardNumber, filteredExpireDate, cvv, filteredTransactionValue)) {
       enableSubmission(true);
-      const payload = {
-        buyer_document: filteredCPF,
-        credit_card_holder_name: name,
-        credit_card_number: filteredCardNumber,
-        credit_card_expiration_date: filteredExpireDate,
-        credit_card_cvv: CVV,
-        amount: Number(filteredTransactionValue),
-      };
-      setPayloadRequest(payload);
     } else {
       enableSubmission(false);
     }
-  }, [name, CPF, cardNumber, expireDate, CVV, transactionValue])
+  }, [name, cpf, cardNumber, expireDate, cvv, transactionValue])
 
   return (
     <>
       <Style.Container>
         <InputField type="text" required label="Nome da pessoa compradora" value={name} onChange={onChangeName}/>
-        <InputField type="text" required label="CPF" value={CPF} onChange={onChangeCPF}/>
+        <InputField type="text" required label="CPF" value={cpf} onChange={onChangeCpf}/>
         <InputField type="text" required label="Nº do cartão" value={cardNumber} onChange={onChangeCardNumber}/>
         <Style.Line>
           <InputField type="text" required label="Data de expiração" value={expireDate} onChange={onChangeExpireDate}/>
-          <InputField type="text" required spaceBefore label="CVV" value={CVV} onChange={onChangeCVV}/>
+          <InputField type="text" required spaceBefore label="CVV" value={cvv} onChange={onChangeCvv}/>
         </Style.Line>
         <InputField type="text" required label="Valor da transação" value={transactionValue} onChange={onChangeTransactionValue}/>
       </Style.Container>

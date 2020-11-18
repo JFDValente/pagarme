@@ -88,6 +88,14 @@ const ButtonLabel = styled.span`
   color: #FFFFFF;
 `;
 
+const Disclaimer = styled.span`
+  display: block;
+  font-size: 24px;
+  text-align: center;
+
+  margin-top: 50px;
+`;
+
 export default {
   Summary,
   SummaryLabel,
@@ -102,4 +110,5 @@ export default {
   ButtonContainer,
   CreateButton,
   ButtonLabel,
+  Disclaimer,
 };

@@ -8,6 +8,7 @@ import CreateButton from '../../atoms/CreateButton';
 
 import { getTransactions } from '../../helpers/request';
 import number from '../../helpers/number';
+import string from '../../helpers/string';
 
 import Style from './List.style';
 
@@ -21,6 +22,7 @@ const List = () => {
 
   const [countTransactions, setCountTransactions] = useState(0);
   const [totalValue, setTotalValue] = useState(0);
+  const [brokenRequest, setBrokenRequest] = useState(false);
 
   /**
    * updates summary values
@@ -42,6 +44,9 @@ const List = () => {
       getTransactions()
         .then(data => {
           dispatch(setListTransactions(data));
+        })
+        .catch(()=>{
+          setBrokenRequest(true);
         });
     }
   }, []);
@@ -63,14 +68,14 @@ const List = () => {
         </Style.SummaryValue>
       </Style.Summary>
       {
-        !!transactions && transactions.map((transaction) => (
+        !!transactions && !brokenRequest && transactions.map((transaction) => (
           <Style.Transaction key={Math.random() * 10}>
             <Style.LeftColumnTransaction>
               <Style.User>
                 {transaction.name}
               </Style.User>
               <Style.Date>
-                {transaction.date}
+                {string.formatDate(new Date(transaction.date))}
               </Style.Date>
             </Style.LeftColumnTransaction>
             <Style.RightColumnTransaction>
@@ -83,6 +88,13 @@ const List = () => {
             </Style.RightColumnTransaction>
           </Style.Transaction>
         ))
+      }
+      {
+        !!brokenRequest && (
+          <Style.Disclaimer>
+            {info.disclaimer}
+          </Style.Disclaimer>
+        )
       }
       <CreateButton glyph="add" action={goToCreate}/>
     </>

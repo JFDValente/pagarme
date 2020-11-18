@@ -1,5 +1,5 @@
-const formatCPF = (cpf) => {
-  const value = filterCPF(cpf);
+const formatCpf = (cpf) => {
+  const value = filterCpf(cpf);
   if (value.length < 11) return value;
   return value.substr(0,11).replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
 }
@@ -16,12 +16,18 @@ const formatExpireDate = (expireDate) => {
   return value.substr(0,4).replace(/(\d{2})(\d{2})/, "$1/$2");
 }
 
-const formatCVV = (CVV) => {
-  const value = filterCVV(CVV);
+const formatDate = (date) => {
+  const datePart = date.toLocaleDateString('pt-BR');
+  const timePart = date.toLocaleTimeString('pt-BR').substr(0,5);
+  return `${datePart} ${timePart}`;
+}
+
+const formatCvv = (cvv) => {
+  const value = filterCvv(cvv);
   return value.substr(0,3);
 }
 
-const filterCPF = (cpf) => {
+const filterCpf = (cpf) => {
   return cpf.replace(/[^\d]/g, "");
 }
 
@@ -33,17 +39,18 @@ const filterExpireDate = (expireDate) => {
   return expireDate.replace(/[^\d]/g, "");
 }
 
-const filterCVV = (CVV) => {
-  return CVV.replace(/[^\d]/g, "");
+const filterCvv = (cvv) => {
+  return cvv.replace(/[^\d]/g, "");
 }
 
 export default {
-  formatCPF,
+  formatCpf,
   formatCardNumber,
   formatExpireDate,
-  formatCVV,
-  filterCPF,
+  formatCvv,
+  formatDate,
+  filterCpf,
   filterCardNumber,
   filterExpireDate,
-  filterCVV,
+  filterCvv,
 };

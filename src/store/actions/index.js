@@ -1,4 +1,5 @@
 export const SET_LIST_TRANSACTIONS = 'SET_LIST_TRANSACTIONS';
+export const SET_TRANSACTION = 'SET_TRANSACTION';
 
 function setListTransactions(transactions) {
   return {
@@ -7,6 +8,14 @@ function setListTransactions(transactions) {
   };
 }
 
+function setTransaction(transaction) {
+  return {
+    type: SET_TRANSACTION,
+    transaction,
+  };
+}
+
 export {
   setListTransactions,
+  setTransaction,
 };
