@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { func } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setTransaction, updateTransaction } from '../../store/actions';
@@ -15,8 +16,10 @@ import generators from '../../helpers/generators';
 
 import Style from './CreateForm.style';
 
-const CreateForm = () => {
+const CreateForm = (props) => {
   const dispatch = useDispatch();
+
+  const { goBack } = props;
 
   const [name, setName] = useState('');
   const [cpf, setCpf] = useState('');
@@ -25,8 +28,9 @@ const CreateForm = () => {
   const [cvv, setCvv] = useState('');
   const [transactionValue, setTransactionValue] = useState('');
   const [disabledButton, setDisabledButton] = useState(true);
+  const [sendingData, setSendingData] = useState(false);
 
-  // const transactions = useSelector(state => state);
+  const transactions = useSelector(state => state);
 
   /**
    * controls enabling the create transaction button
@@ -35,13 +39,16 @@ const CreateForm = () => {
     setDisabledButton(!status);
   };
 
+  const findPendingTransaction = () => transactions.find(t => t.syncId);
+
   const sendRequest = (transaction) => {
     const payload = formatRequest(transaction);
     createTransaction(payload)
       .then(data => {
         dispatch(updateTransaction(transaction.syncId, data.id, data.status));
       })
-      .catch((error) => {
+      .catch(() => {
+        goBack();
       });
   }
 
@@ -65,7 +72,7 @@ const CreateForm = () => {
       value: (Number(filteredTransactionValue)/100),
     }
     dispatch(setTransaction(newTransaction));
-    sendRequest(newTransaction);
+    setSendingData(true);
   };
 
   /**
@@ -105,7 +112,8 @@ const CreateForm = () => {
   }
 
   /**
-   * Checks whether the data is valid and enables the creation of the transaction 
+   * Checks whether the data is valid
+   * and enables the creation of the transaction
    */
   useEffect(() => {
     const filteredTransactionValue = transactionValue.replace(/[^\d]/g, "");
@@ -118,7 +126,22 @@ const CreateForm = () => {
     } else {
       enableSubmission(false);
     }
-  }, [name, cpf, cardNumber, expireDate, cvv, transactionValue])
+  }, [name, cpf, cardNumber, expireDate, cvv, transactionValue]);
+
+  /**
+   * Checks if there are any transactions to synchronize
+   * with the server and sends them
+   */
+  useEffect(() => {
+    if (sendingData) {
+      const pendingTransaction = findPendingTransaction();
+      if (pendingTransaction) {
+        sendRequest(pendingTransaction);
+      } else {
+        goBack();
+      }
+    }
+  }, [transactions, sendingData]);
 
   return (
     <>
@@ -136,5 +159,9 @@ const CreateForm = () => {
     </>
   );
 }
+
+CreateForm.propTypes = {
+  goBack: func.isRequired,
+};
 
 export default CreateForm;

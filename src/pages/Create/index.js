@@ -23,7 +23,7 @@ const Create = () => {
           {info.title}
         </Style.Title>
       </Style.Header>
-      <CreateForm />
+      <CreateForm goBack={goBack}/>
     </>
   );
 }

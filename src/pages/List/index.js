@@ -68,6 +68,7 @@ const List = () => {
           {number.formatCurrency(totalValue)}
         </Style.SummaryValue>
       </Style.Summary>
+      <Style.ContainerTransactions>
       {
         !!transactions && !brokenRequest && transactions.map((transaction) => (
           <Style.Transaction key={Math.random() * 10}>
@@ -90,6 +91,7 @@ const List = () => {
           </Style.Transaction>
         ))
       }
+      </Style.ContainerTransactions>
       {
         !!brokenRequest && (
           <Style.Disclaimer>

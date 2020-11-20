@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const ButtonContainer = styled.div`
   box-sizing: border-box;
-  position: absolute;
+  position: fixed;
   width: 100%;
   bottom: 32px;
   padding: 0 16px;

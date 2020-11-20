@@ -22,6 +22,10 @@ const SummaryValue = styled.p`
   line-height: 32px;
 `;
 
+const ContainerTransactions = styled.div`
+  margin-bottom: 70px;
+`;
+
 const Transaction = styled.div`
   box-sizing: border-box;
   display: flex;
@@ -61,33 +65,6 @@ const Value = styled.p`
   color: #2B2B2B;
 `;
 
-const ButtonContainer = styled.div`
-  position: absolute;
-  width: 100%;
-  bottom: 32px;
-  padding: 0 16px;
-`;
-
-const CreateButton = styled.button`
-  display: flex;
-  justify-content: center;
-  box-sizing: border-box;
-  width: 100%;
-  background-color: #3F2787;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(112, 82, 200, 0.3);
-  padding: 12px 0;
-`;
-
-const ButtonLabel = styled.span`
-  margin-left: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 24px;
-  color: #FFFFFF;
-`;
-
 const Disclaimer = styled.span`
   display: block;
   font-size: 24px;
@@ -100,6 +77,7 @@ export default {
   Summary,
   SummaryLabel,
   SummaryValue,
+  ContainerTransactions,
   Transaction,
   LeftColumnTransaction,
   RightColumnTransaction,
@@ -107,8 +85,5 @@ export default {
   Date,
   Status,
   Value,
-  ButtonContainer,
-  CreateButton,
-  ButtonLabel,
   Disclaimer,
 };
