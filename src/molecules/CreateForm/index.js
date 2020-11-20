@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setTransaction } from '../../store/actions';
+import { setTransaction, updateTransaction } from '../../store/actions';
 
 import CreateButton from '../../atoms/CreateButton';
 import InputField from '../../atoms/InputField';
 
+import { formatRequest } from '../../helpers/formatter';
+import { createTransaction } from '../../helpers/request';
 import string from '../../helpers/string';
 import number from '../../helpers/number';
 import { isDataValid } from '../../helpers/validators';
+import generators from '../../helpers/generators';
 
 import Style from './CreateForm.style';
 
@@ -23,12 +26,24 @@ const CreateForm = () => {
   const [transactionValue, setTransactionValue] = useState('');
   const [disabledButton, setDisabledButton] = useState(true);
 
+  // const transactions = useSelector(state => state);
+
   /**
    * controls enabling the create transaction button
    */
   const enableSubmission = (status) => {
     setDisabledButton(!status);
   };
+
+  const sendRequest = (transaction) => {
+    const payload = formatRequest(transaction);
+    createTransaction(payload)
+      .then(data => {
+        dispatch(updateTransaction(transaction.syncId, data.id, data.status));
+      })
+      .catch((error) => {
+      });
+  }
 
   /**
    * performs the creation of a transaction
@@ -40,6 +55,7 @@ const CreateForm = () => {
     const filteredExpireDate = string.filterExpireDate(expireDate);
 
     const newTransaction = {
+      syncId: generators.id(),
       name,
       cpf: filteredcpf,
       cardNumber: filteredCardNumber,
@@ -49,6 +65,7 @@ const CreateForm = () => {
       value: (Number(filteredTransactionValue)/100),
     }
     dispatch(setTransaction(newTransaction));
+    sendRequest(newTransaction);
   };
 
   /**

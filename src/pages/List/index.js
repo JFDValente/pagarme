@@ -17,12 +17,13 @@ import info from './data';
 const List = () => {
   const history = useHistory();
   const goToCreate = () => history.push('/create');
-  const transactions = useSelector(state => state);
   const dispatch = useDispatch();
 
   const [countTransactions, setCountTransactions] = useState(0);
   const [totalValue, setTotalValue] = useState(0);
   const [brokenRequest, setBrokenRequest] = useState(false);
+
+  const transactions = useSelector(state => state);
 
   /**
    * updates summary values

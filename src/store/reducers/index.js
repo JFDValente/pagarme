@@ -1,7 +1,8 @@
-import { formatResponse } from '../../helpers/formatter';
+import { formatResponse, formatStatus } from '../../helpers/formatter';
 import {
   SET_LIST_TRANSACTIONS,
   SET_TRANSACTION,
+  UPDATE_TRANSACTION,
 } from '../actions';
 
 export default (state = [], action) => {
@@ -21,6 +22,16 @@ export default (state = [], action) => {
       return [
         ...state,
         newTransaction,
+      ];
+    }
+    case UPDATE_TRANSACTION:
+    {
+      const index = state.findIndex(t => t.syncId === action.syncId);
+      state[index].id = action.id;
+      state[index].status = formatStatus(action.status);
+      delete state[index].syncId;
+      return [
+        ...state,
       ];
     }
     default:

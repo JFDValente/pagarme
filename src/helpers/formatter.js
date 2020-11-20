@@ -20,7 +20,7 @@ const formatRequest = (transaction) => ({
   date: transaction.date,
 });
 
-const formatStatus = (status, id) => {
+const formatStatus = (status, id = null) => {
   switch (status) {
     case 'refused':
       return 'Recusada';
@@ -37,4 +37,5 @@ const formatStatus = (status, id) => {
 export {
   formatRequest,
   formatResponse,
+  formatStatus,
 };

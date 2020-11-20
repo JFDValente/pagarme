@@ -1,5 +1,6 @@
 export const SET_LIST_TRANSACTIONS = 'SET_LIST_TRANSACTIONS';
 export const SET_TRANSACTION = 'SET_TRANSACTION';
+export const UPDATE_TRANSACTION = 'UPDATE_STATUS_TRANSACTION';
 
 function setListTransactions(transactions) {
   return {
@@ -15,7 +16,17 @@ function setTransaction(transaction) {
   };
 }
 
+function updateTransaction(syncId, id, status) {
+  return {
+    type: UPDATE_TRANSACTION,
+    syncId,
+    id,
+    status,
+  };
+}
+
 export {
   setListTransactions,
   setTransaction,
+  updateTransaction,
 };
