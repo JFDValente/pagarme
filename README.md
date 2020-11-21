@@ -22,12 +22,8 @@ Execute o comando `yarn`.
 1. Execute `yarn server` para executar a API;
 1. Execute `yarn start` para rodar a aplicação React.
 
-## Comandos
+## Observações
 
-O produto deve ser construído na base provida aqui. Para conhecer os comandos disponíveis, visite o `package.json`, mas seguem alguns comandos abaixo:
-
-- `yarn start`: executa o projeto
-- `yarn build`: cria o build para produção
-- `yarn test`: executa os testes
-- `yarn server`: executa a api para usar com o projeto
-  - Precisa que o arquivo `db.example.json` seja renomeado para `db.json`.
+1 - Para não atrasar mais a entrega os testes não foram implementados;
+2 - O endereço do servidor é setado em: src/helpers/request.js na variável server;
+3 - O método escolhido para realizar a sincronização das transações criadas offline foi apenas realizando o envio das mesmas durante a criação da pŕoxima transação;
